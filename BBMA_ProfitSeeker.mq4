@@ -65,7 +65,7 @@ void OnTick()
     if (!hasOpenPosition && Close[1] < lowerBand && Close[0] > lowerBand && Close[0] > maValue)
     {
         double tpBuy = upperBand; // Set TP untuk posisi beli berdasarkan upper band
-        double slBuy = Bid - (tpBuy - Ask); // Set SL pada jarak yang sama di bawah harga Bid
+        double slBuy = Bid - (tpBuy - Bid); // Set SL pada jarak yang sama di bawah harga Bid
 
         // Pastikan harga SL dan TP valid
         if (tpBuy > Ask + minDistance && slBuy < Bid - minDistance)
@@ -86,7 +86,7 @@ void OnTick()
     if (!hasOpenPosition && Close[1] > upperBand && Close[0] < upperBand && Close[0] < maValue)
     {
         double tpSell = lowerBand; // Set TP untuk posisi jual berdasarkan lower band
-        double slSell = Ask + (Bid - tpSell); // Set SL pada jarak yang sama di atas harga Ask
+        double slSell = Ask + (Ask - tpSell); // Set SL pada jarak yang sama di atas harga Ask
 
         // Pastikan harga SL dan TP valid
         if (tpSell < Bid - minDistance && slSell > Ask + minDistance)
