@@ -76,10 +76,7 @@ void OnTick()
                 Print("Error opening buy order: ", GetLastError());
             }
         }
-        else
-        {
-            Print("Error: Take Profit or Stop Loss is not valid for buy.");
-        }
+        // No else statement to avoid printing error if conditions are not met
     }
 
     // Logika penjualan
@@ -97,10 +94,7 @@ void OnTick()
                 Print("Error opening sell order: ", GetLastError());
             }
         }
-        else
-        {
-            Print("Error: Take Profit or Stop Loss is not valid for sell.");
-        }
+        // No else statement to avoid printing error if conditions are not met
     }
 
     UpdateChartComment(); // Update the chart comment with current information
