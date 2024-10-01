@@ -6,6 +6,7 @@
 - [Features](#features)
 - [Input Parameters](#input-parameters)
 - [How It Works](#how-it-works)
+- [TP and SL Management](#tp-and-sl-management)
 - [Usage Instructions](#usage-instructions)
 - [License](#license)
 - [Contributing](#contributing)
@@ -38,6 +39,27 @@ The **BBMA Profit Seeker** is an Expert Advisor (EA) designed for trading in Met
    - It checks for buy conditions: If the previous candle closed below the lower Bollinger Band and the current candle closes above it, a buy order is placed.
    - It checks for sell conditions: If the previous candle closed above the upper Bollinger Band and the current candle closes below it, a sell order is placed.
 3. **Chart Comment Update**: The EA updates the chart comment with the current Bollinger Bands values, moving average, lot size, current take profit and stop loss levels for both buy and sell orders, date, and time on each tick.
+
+## TP and SL Management
+The **BBMA Profit Seeker** EA effectively manages Take Profit (TP) and Stop Loss (SL) levels based on the Bollinger Bands:
+
+1. **Entry Conditions**:
+   - **Buy Orders**: A buy order is placed when the previous candle closes below the lower Bollinger Band, and the current candle closes above it and above the Moving Average (MA).
+   - **Sell Orders**: A sell order is placed when the previous candle closes above the upper Bollinger Band, and the current candle closes below it and below the Moving Average (MA).
+
+2. **Setting Take Profit (TP)**:
+   - For buy orders, the TP is set to the value of the upper Bollinger Band.
+   - For sell orders, the TP is set to the value of the lower Bollinger Band.
+
+3. **Setting Stop Loss (SL)**:
+   - For buy orders, the SL is calculated as the current Bid price minus the distance to the TP.
+   - For sell orders, the SL is calculated as the current Ask price plus the distance to the TP.
+
+4. **Validation of TP and SL**:
+   - The EA checks that the calculated TP and SL levels are valid before placing an order, ensuring they comply with broker requirements.
+
+5. **Real-time Updates**:
+   - The EA continuously updates the chart comment with the current values of the Bollinger Bands, Moving Average, lot size, and the TP and SL levels for both buy and sell orders.
 
 ## Usage Instructions
 1. **Installation**: Copy the `bbma_profit_seeker.mq4` file into the `Experts` directory of your MetaTrader 4 installation.
