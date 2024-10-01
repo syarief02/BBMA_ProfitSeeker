@@ -5,7 +5,7 @@
 #property description "Recommended timeframe M5, choose ranging pair." // Additional description
 #property description "Recommended using a cent account for 100 USD capital" // Additional description
 #property description "Join our Telegram channel: t.me/EABudakUbat" // Additional description
-#property description "Facebook: m.e/EABudakUbat" // Additional description
+#property description "Facebook: m.me/EABudakUbat" // Additional description
 #property description "+60194961568 (Budak Ubat)" // Additional description
 #property icon "\\Images\\bupurple.ico" // Path to the EA icon
 #property strict // Enable strict compilation mode
