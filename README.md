@@ -14,7 +14,7 @@
 
 ## Download
 You can download the compiled EA from the following link:
-- [Download BBMA Profit Seeker EA](https://github.com/syarief02/BBMA_ProfitSeeker/raw/refs/heads/main/bbma_profit_seeker.ex4)
+- [Download BBMA Profit Seeker EA](https://github.com/syarief02/BBMA_ProfitSeeker/raw/refs/heads/main/BBMA_ProfitSeeker.ex4)
 
 ## Overview
 The **BBMA Profit Seeker** is an Expert Advisor (EA) designed for trading in MetaTrader 4 using the BBMA (Bollinger Bands and Moving Average) strategy. This EA aims to identify potential buy and sell opportunities based on the relationship between the current price, Bollinger Bands, and a moving average.
