@@ -31,8 +31,26 @@ input int Slippage = 3;         // Maximum slippage allowed when placing orders 
 
 double upperBand, lowerBand, maValue;
 string desc;
+
+// Input parameters
+input string SerialKey = ""; // User input for the encrypted serial key
+
+// Function declarations
+string GenerateBase64Key(string accountName, int accountNumber);
+string Base64Encode(const uchar &data[], int length);
+bool ValidateSerialKey(string serialKey);
+
 int OnInit()
 {
+  // Validate the serial key
+  if (!ValidateSerialKey(SerialKey))
+  {
+    Print("The serial key is incorrect. The EA will be removed from the chart.");
+    ExpertRemove(); // Remove the EA from the chart
+    return INIT_FAILED; // Initialization failed
+  }
+  
+  Print("EA successfully initialized. The serial key is correct.");
   UpdateChartComment();  // Call function to initialize and display the chart comment
   return INIT_SUCCEEDED; // Return success status for initialization
 }
@@ -181,3 +199,62 @@ bool CheckVolumeValue(double volume, string &description)
   return (true);
 }
 
+//+------------------------------------------------------------------+
+//| Function to validate the serial key                              |
+//+------------------------------------------------------------------+
+bool ValidateSerialKey(string serialKey)
+{
+  string accountName = AccountName(); // Get the account name
+  int accountNumber = AccountNumber(); // Get the account number
+
+  // Generate the expected Base64 key based on the account name and number
+  string expectedKey = GenerateBase64Key(accountName, accountNumber);
+
+  // Compare the provided serial key with the expected key
+  return (serialKey == expectedKey);
+}
+
+//+------------------------------------------------------------------+
+//| Function to generate Base64 key based on account name and number |
+//+------------------------------------------------------------------+
+string GenerateBase64Key(string accountName, int accountNumber)
+{
+  // Normalize the account name to lowercase
+  string normalizedAccountName = StringToLower(accountName);
+  
+  // Concatenate the account name and account number
+  string combinedString = normalizedAccountName + IntegerToString(accountNumber);
+  
+  // Convert the combined string to a byte array
+  uchar data[];
+  StringToCharArray(combinedString, data);
+  
+  // Generate the Base64 encoded string
+  return Base64Encode(data, ArraySize(data));
+}
+
+//+------------------------------------------------------------------+
+//| Function to encode data to Base64                                |
+//+------------------------------------------------------------------+
+string Base64Encode(const uchar &data[], int length)
+{
+  const string base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  string result = "";
+  int i = 0;
+
+  while (i < length)
+  {
+    int byte1 = (i < length) ? data[i++] : 0;
+    int byte2 = (i < length) ? data[i++] : 0;
+    int byte3 = (i < length) ? data[i++] : 0;
+
+    int triple = (byte1 << 16) + (byte2 << 8) + byte3;
+
+    result += base64Chars[(triple >> 18) & 0x3F];
+    result += base64Chars[(triple >> 12) & 0x3F];
+    result += (i > length + 1) ? base64Chars[(triple >> 6) & 0x3F] : '=';
+    result += (i > length) ? base64Chars[triple & 0x3F] : '=';
+  }
+
+  return result;
+}
